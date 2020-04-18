@@ -14,17 +14,20 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return Role::all();
-    }
+        
+        $rawRoles = \App\Role::all();
+        $roles[] = '';
+        for($i=0;$i<$rawRoles->count();$i++){
+            $roles[$i] = [
+                'id' => $rawRoles[$i]->id,
+                'name' => $rawRoles[$i]->name,
+                'count' => \App\User::where([
+                    ['role','=',$rawRoles[$i]->name]
+                ])->get()->count()                
+            ];
+        };
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $roles;
     }
 
     /**
@@ -82,6 +85,7 @@ class RoleController extends Controller
     {
         //
     }
+
 
     /**
      * Remove the specified resource from storage.

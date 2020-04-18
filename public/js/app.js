@@ -42948,9 +42948,11 @@ var render = function() {
                           return _c("tr", { key: role.id }, [
                             _c("td", [_vm._v(_vm._s(role.name))]),
                             _vm._v(" "),
-                            _c("td", [_vm._v("12")]),
+                            _c("td", { staticClass: "text-center" }, [
+                              _vm._v(_vm._s(role.count))
+                            ]),
                             _vm._v(" "),
-                            _c("td", [
+                            _c("td", { staticClass: "text-center" }, [
                               _vm._m(2, true),
                               _vm._v(" "),
                               _c(
@@ -43099,9 +43101,9 @@ var staticRenderFns = [
     return _c("thead", [
       _c("th", [_vm._v("Role Name")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Member Count")]),
+      _c("th", { staticClass: "text-center" }, [_vm._v("Member Count")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Config")])
+      _c("th", { staticClass: "text-center" }, [_vm._v("Config")])
     ])
   },
   function() {

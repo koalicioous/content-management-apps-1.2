@@ -19,14 +19,14 @@
                             <table class="table">
                                 <thead>
                                     <th>Role Name</th>
-                                    <th>Member Count</th>
-                                    <th>Config</th>
+                                    <th class="text-center">Member Count</th>
+                                    <th class="text-center">Config</th>
                                 </thead>
                                 <tbody>
                                     <tr v-for="role in roles" :key="role.id">
                                         <td>{{ role.name }}</td>
-                                        <td>12</td>
-                                        <td>
+                                        <td class="text-center">{{ role.count }}</td>
+                                        <td class="text-center">
                                             <button class="btn btn-secondary">
                                                 <i class="fas fa-cogs"></i>
                                             </button>
