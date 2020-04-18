@@ -21,6 +21,8 @@ Auth::routes();
 
 Route::get('/dashboard', 'HomeController@index')->name('home');
 
+Route::resource('/role', 'RoleController');
+
 Route::get('/{vue_capture?}', function () {
-    return view('home');
+    return view('layouts.master');
   })->where('vue_capture', '[\/\w\.-]*');

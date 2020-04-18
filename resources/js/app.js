@@ -31,6 +31,55 @@ const router = new VueRouter({
 })
 
 /**
+ * Importing Vform for input and auto front-end error input notification
+ */
+import { Form, HasError, AlertError} from 'vform'
+window.Form = Form
+
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
+
+/**
+ * Import Vue-progressbar and make an instance of it
+ */
+
+ import ProgressBar from 'vue-progressbar'
+ const options = {
+    color: '#ac969',
+    failedColor: '#cf4100',
+    thickness: '5px',
+    transition: {
+      speed: '1.2s',
+      opacity: '0.6s',
+      termination: 300
+    },
+    autoRevert: true,
+    location: 'top',
+    inverse: false
+  }
+  Vue.use(ProgressBar,options)
+
+  /**
+   * Import SweetAlert and make an instance of it
+   */
+
+   import swal from 'sweetalert2'
+   const Toast = swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    onOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
+
+  window.Swal = swal
+  window.Toast = Toast
+
+/**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
  * components and automatically register them with their "basename".
