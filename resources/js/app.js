@@ -8,6 +8,11 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 /**
+ * Vuetify Instance
+ */
+import Vuetify from 'vuetify';
+Vue.use(Vuetify);
+/**
  * Vue Router Instance
  */
 
@@ -106,5 +111,6 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
-    router
+    router,
+    vuetify: new Vuetify
 });
