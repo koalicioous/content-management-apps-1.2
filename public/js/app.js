@@ -2106,9 +2106,129 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      CogForm: new Form({
+        id: '',
+        name: '',
+        email: '',
+        role: ''
+      }),
+      roles: '',
+      unverifieds: ''
+    };
+  },
+  methods: {
+    loadRoles: function loadRoles() {
+      var _this = this;
+
+      axios.get('/role').then(function (response) {
+        _this.roles = response.data;
+      })["catch"](function (response) {
+        console.log('Failed to load Roles data');
+      });
+    },
+    loadUnverified: function loadUnverified() {
+      var _this2 = this;
+
+      axios.get('/user/unverified').then(function (response) {
+        _this2.unverifieds = response.data;
+        console.log('Unverfieds User Loaded');
+      })["catch"](function (response) {
+        console.log('Failed to load unverified users');
+      });
+    },
+    editUnverifiedUser: function editUnverifiedUser(user) {
+      $('#UnverifiedCogModal').modal('show');
+      this.CogForm.id = user.id;
+      this.CogForm.name = user.name;
+      this.CogForm.email = user.email;
+      this.CogForm.role = user.role;
+    }
+  },
+  created: function created() {
+    this.$Progress.start();
+  },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    this.loadRoles();
+    this.loadUnverified();
+    this.$Progress.finish();
   }
 });
 
@@ -42276,25 +42396,312 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-10" }, [
+        _c("div", { staticClass: "card shadow-sm" }, [
+          _vm._m(1),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            this.unverifieds.length < 1
+              ? _c("div", [_vm._m(2)])
+              : _c("div", [
+                  _c("table", { staticClass: "table" }, [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.unverifieds, function(unv) {
+                        return _c("tr", { key: unv.id }, [
+                          _c("td", [_vm._v(_vm._s(unv.id))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(unv.name))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(unv.email))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.editUnverifiedUser(unv)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fas fa-cogs" })]
+                            )
+                          ])
+                        ])
+                      }),
+                      0
+                    )
+                  ])
+                ])
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "UnverifiedCogModal",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "UnverifiedCogModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(4),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c(
+                  "form",
+                  {
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.login($event)
+                      },
+                      keydown: function($event) {
+                        return _vm.form.onKeydown($event)
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("User ID")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.CogForm.id,
+                              expression: "CogForm.id"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.CogForm.errors.has("id") },
+                          attrs: { type: "text", name: "id", readonly: "" },
+                          domProps: { value: _vm.CogForm.id },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.CogForm, "id", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.CogForm, field: "is" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Full Name")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.CogForm.name,
+                              expression: "CogForm.name"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.CogForm.errors.has("name")
+                          },
+                          attrs: { type: "text", name: "name", readonly: "" },
+                          domProps: { value: _vm.CogForm.name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.CogForm, "name", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.CogForm, field: "is" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Email")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.CogForm.email,
+                              expression: "CogForm.email"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.CogForm.errors.has("email")
+                          },
+                          attrs: { type: "text", name: "email", readonly: "" },
+                          domProps: { value: _vm.CogForm.email },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.CogForm,
+                                "email",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.CogForm, field: "is" }
+                        })
+                      ],
+                      1
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _vm._m(5)
+            ])
+          ]
+        )
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [_vm._v("Users")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v("\n                    This is Users\n                ")
-            ])
+    return _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-10" }, [
+        _c("div", { staticClass: "card shadow-sm" }, [
+          _c("div", { staticClass: "card-header" }, [_vm._v("Active Users")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _vm._v("\n                    This is Users\n                ")
           ])
         ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("strong", [_vm._v("Unverified Users")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "text-center" }, [
+      _c("strong", [_vm._v("Whoops! No Unverified User is Available to Show")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("th", [_vm._v("User ID")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Full Name")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Email")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Configs")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("User Config")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Close")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "button" } },
+        [_vm._v("Save changes")]
+      )
     ])
   }
 ]

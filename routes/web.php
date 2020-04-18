@@ -21,7 +21,11 @@ Auth::routes();
 
 Route::get('/dashboard', 'HomeController@index')->name('home');
 
+//Role
 Route::resource('/role', 'RoleController');
+
+//User
+Route::get('/user/unverified', 'UserController@unverified');
 
 Route::get('/{vue_capture?}', function () {
     return view('layouts.master');
