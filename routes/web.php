@@ -26,6 +26,8 @@ Route::resource('/role', 'RoleController');
 
 //User
 Route::get('/user/unverified', 'UserController@unverified');
+Route::post('/user/{user}/role', 'UserController@updateRole');
+Route::get('/user/active', 'UserController@activeUsers');
 
 Route::get('/{vue_capture?}', function () {
     return view('layouts.master');

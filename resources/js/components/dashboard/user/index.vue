@@ -4,9 +4,34 @@
             <div class="col-md-10">
                 <div class="card shadow-sm">
                     <div class="card-header">Active Users</div>
-
                     <div class="card-body">
-                        This is Users
+                        <div v-if="this.users.length < 1">
+                            <p class="text-center"><strong>Whoops! Active User is Available to Show</strong></p>
+                        </div>
+                        <div v-else>
+                            <table class="table">
+                                <thead>
+                                    <th>User ID</th>
+                                    <th>Full Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Configs</th>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="user in users" :key="user.id">
+                                        <td>{{ user.id }}</td>
+                                        <td>{{ user.name }}</td>
+                                        <td>{{ user.email }}</td>
+                                        <td>{{ user.role }}</td>
+                                        <td>
+                                            <button class="btn btn-primary">
+                                                <i class="fas fa-cogs"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -57,32 +82,40 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <form @submit.prevent="login" @keydown="form.onKeydown($event)">
-                        <div class="form-group">
-                            <label>User ID</label>
-                            <input v-model="CogForm.id" type="text" name="id"
-                                class="form-control" :class="{ 'is-invalid': CogForm.errors.has('id') }" readonly>
-                            <has-error :form="CogForm" field="is"></has-error>
+                    <form @submit.prevent="updateRole()" @keydown="form.onKeydown($event)">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>User ID</label>
+                                <input v-model="CogForm.id" type="text" name="id"
+                                    class="form-control" :class="{ 'is-invalid': CogForm.errors.has('id') }" readonly>
+                                <has-error :form="CogForm" field="is"></has-error>
+                            </div>
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input v-model="CogForm.name" type="text" name="name"
+                                    class="form-control" :class="{ 'is-invalid': CogForm.errors.has('name') }" readonly>
+                                <has-error :form="CogForm" field="is"></has-error>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input v-model="CogForm.email" type="text" name="email"
+                                    class="form-control" :class="{ 'is-invalid': CogForm.errors.has('email') }" readonly>
+                                <has-error :form="CogForm" field="email"></has-error>
+                            </div>
+                            <div class="form-group">
+                                <label>Role</label>
+                                <select v-model="CogForm.role" name="role" id="role"
+                                type="text" class="form-control" :class="{ 'is-invalid': CogForm.errors.has('role') }">
+                                    <option v-for="(role, key) in roles" :value="role" :key="key">{{role}}</option>
+                                </select>
+                                <has-error :form="CogForm" field="role"></has-error>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <input v-model="CogForm.name" type="text" name="name"
-                                class="form-control" :class="{ 'is-invalid': CogForm.errors.has('name') }" readonly>
-                            <has-error :form="CogForm" field="is"></has-error>
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input v-model="CogForm.email" type="text" name="email"
-                                class="form-control" :class="{ 'is-invalid': CogForm.errors.has('email') }" readonly>
-                            <has-error :form="CogForm" field="is"></has-error>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Update Role</button>
                         </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
                 </div>
             </div>
         </div>
@@ -99,15 +132,19 @@
                     email: '',
                     role: '',
                 }),
-                roles: '',
+                roles: [],
                 unverifieds: '',
+                users: []
             }
         },
         methods: {
             loadRoles(){
                 axios.get('/role')
                 .then(response => {
-                    this.roles = response.data
+                    for(let i = 0;i < response.data.length; i++){
+                        this.roles[i] = response.data[i].name
+                    }
+                    console.log('Success to load Roles data')
                 })
                 .catch(response => {
                     console.log('Failed to load Roles data')
@@ -117,10 +154,20 @@
                 axios.get('/user/unverified')
                 .then(response => {
                     this.unverifieds = response.data
-                    console.log('Unverfieds User Loaded')
+                    console.log('Success to load Unverfied Users Loaded')
                 })
                 .catch(response => {
                     console.log('Failed to load unverified users')
+                })
+            },
+            loadUsers(){
+                axios.get('/user/active')
+                .then(response => {
+                    this.users = response.data
+                    console.log('Success to load Users')
+                })
+                .catch(response => {
+                    console.log('Failed to Load Users')
                 })
             },
             editUnverifiedUser(user){
@@ -129,6 +176,22 @@
                 this.CogForm.name = user.name
                 this.CogForm.email = user.email
                 this.CogForm.role = user.role
+            },
+            updateRole(){
+                this.$Progress.start()
+                this.CogForm.post('user/' + this.CogForm.id + '/role')
+                .then(response => {
+                    this.$Progress.finish()
+                    this.loadUnverified()
+                    $('#UnverifiedCogModal').modal('hide')
+                    Toast.fire({
+                        icon: 'success',
+                        title: this.CogForm.name + ' Role is updated'
+                    })
+                })
+                .catch(response => {
+                    console.log('Failed to Update Role')
+                })
             }
         },
         created() {
@@ -136,6 +199,7 @@
         },
         mounted() {
             this.loadRoles()
+            this.loadUsers();
             this.loadUnverified()
             this.$Progress.finish()
         }

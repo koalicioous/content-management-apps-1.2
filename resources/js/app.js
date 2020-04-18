@@ -80,6 +80,12 @@ Vue.component(AlertError.name, AlertError)
   window.Toast = Toast
 
 /**
+ * Import and make an instance of vue-select
+ */
+import vSelect from 'vue-select'
+Vue.component('v-select', vSelect)
+
+/**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
  * components and automatically register them with their "basename".
