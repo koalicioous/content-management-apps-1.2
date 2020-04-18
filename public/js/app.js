@@ -2004,9 +2004,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    console.log('Component mounted.');
+  data: function data() {
+    return {
+      e6: [],
+      e7: [],
+      states: ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Federated States of Micronesia', 'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming']
+    };
   }
 });
 
@@ -42330,23 +42358,92 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-expansion-panels",
-    _vm._l(5, function(item, i) {
-      return _c(
-        "v-expansion-panel",
-        { key: i },
+    "v-container",
+    { attrs: { fluid: "" } },
+    [
+      _c(
+        "v-row",
+        { attrs: { align: "center" } },
         [
-          _c("v-expansion-panel-header", [_vm._v("Item")]),
+          _c(
+            "v-col",
+            { attrs: { cols: "12", sm: "6" } },
+            [
+              _c("v-subheader", {
+                domProps: {
+                  textContent: _vm._s("Multiple with persistent hint")
+                }
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("v-expansion-panel-content", [
-            _vm._v(
-              "\n      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n    "
-            )
-          ])
+          _c(
+            "v-col",
+            { attrs: { cols: "12", sm: "6" } },
+            [
+              _c("v-select", {
+                attrs: {
+                  items: _vm.states,
+                  "menu-props": { maxHeight: "400" },
+                  label: "Select",
+                  multiple: "",
+                  hint: "Pick your favorite states",
+                  "persistent-hint": ""
+                },
+                model: {
+                  value: _vm.e6,
+                  callback: function($$v) {
+                    _vm.e6 = $$v
+                  },
+                  expression: "e6"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "12", sm: "6" } },
+            [
+              _c("v-subheader", {
+                domProps: {
+                  textContent: _vm._s("Multiple (Chips) with persistent hint")
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "12", sm: "6" } },
+            [
+              _c("v-select", {
+                attrs: {
+                  items: _vm.states,
+                  label: "Select",
+                  multiple: "",
+                  chips: "",
+                  hint: "What are the target regions",
+                  "persistent-hint": ""
+                },
+                model: {
+                  value: _vm.e7,
+                  callback: function($$v) {
+                    _vm.e7 = $$v
+                  },
+                  expression: "e7"
+                }
+              })
+            ],
+            1
+          )
         ],
         1
       )
-    }),
+    ],
     1
   )
 }
