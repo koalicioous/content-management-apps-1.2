@@ -16,7 +16,7 @@
 
 </head>
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
+<div class="wrapper" id="app">
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -72,7 +72,7 @@
           
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
         </div>
       </div>
 
@@ -82,36 +82,36 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <router-link to="/dashboard" class="nav-link">
               <i class="nav-icon fas fa-columns"></i>
               <p>
                 Dashboard
               </p>
-            </a>
+            </router-link>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <router-link to="/rubriks" class="nav-link">
               <i class="nav-icon fas fa-layer-group"></i>
               <p>
                 Rubrik
               </p>
-            </a>
+            </router-link>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <router-link to="/calendar" class="nav-link">
               <i class="nav-icon fas fa-calendar-alt"></i>
               <p>
                 Calendar
               </p>
-            </a>
+            </router-link>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <router-link to="/tasks" class="nav-link">
               <i class="nav-icon fas fa-tasks"></i>
               <p>
                 Tasks
               </p>
-            </a>
+            </router-link>
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
@@ -123,16 +123,16 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <router-link to="/roles" class="nav-link">
                   <i class="fas fa-tags"></i>
                   Role
-                </a>
+                </router-link>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <router-link to="/users" class="nav-link">
                   <i class="fas fa-users"></i>
                   Users
-                </a>
+                </router-link>
               </li>
             </ul>
           </li>
@@ -150,12 +150,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Starter Page</h1>
+            <h1 class="m-0 text-dark">Dashboard</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+              <li class="breadcrumb-item active">Dashboard</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -166,8 +166,8 @@
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
-        
 
+        <router-view></router-view>
 
       </div><!-- /.container-fluid -->
     </div>
@@ -180,10 +180,13 @@
     <!-- Control sidebar content goes here -->
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <li class="nav-item">
-        <a href="#" class="nav-link">
+        <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
           <i class="fas fa-sign-out-alt"></i>
-          Logout
+          {{ __('Logout') }}
         </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
       </li>
     </ul>
   </aside>

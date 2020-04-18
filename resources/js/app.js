@@ -5,8 +5,30 @@
  */
 
 require('./bootstrap');
-
 window.Vue = require('vue');
+
+/**
+ * Vue Router Instance
+ */
+
+ import VueRouter from 'vue-router';
+ Vue.use(VueRouter)
+
+// Defining routes and components
+let routes = [
+    { path: '/dashboard', component: require('./components/dashboard/main.vue').default},
+    { path: '/rubriks', component: require('./components/dashboard/rubrik/index.vue').default},
+    { path: '/calendar', component: require('./components/dashboard/calendar/index.vue').default},
+    { path: '/tasks', component: require('./components/dashboard/task/index.vue').default},
+    { path: '/users', component: require('./components/dashboard/user/index.vue').default},
+    { path: '/roles', component: require('./components/dashboard/user/role.vue').default},
+]
+
+//Creating the instance of VueRouter and pass the 'routes' option
+const router = new VueRouter({
+    mode: 'history',
+    routes
+})
 
 /**
  * The following block of code may be used to automatically register your
@@ -29,4 +51,5 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    router
 });
