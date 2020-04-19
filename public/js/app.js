@@ -2090,23 +2090,57 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       rubrikId: this.$route.params.id,
-      rubrik: ''
+      rubrik: '',
+      newPost: new Form({
+        name: ''
+      })
     };
   },
   methods: {
     loadRubrik: function loadRubrik() {
-      var _this = this;
-
-      axios.get('/rubrik/' + this.rubrikId).then(function (response) {
-        _this.rubrik = response.data;
+      axios.get('/rubrik/loadrubrik/' + this.rubrikId).then(function (response) {
+        console.log(response.data);
       })["catch"](function (e) {
         console.log('failed to load rubrik data');
       });
-    }
+    },
+    scheduleNewPost: function scheduleNewPost() {}
   },
   mounted: function mounted() {
     this.loadRubrik();
@@ -42697,7 +42731,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "container-fluid" }, [
       _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "col-md-7" }, [
           _c(
             "div",
             {
@@ -42714,7 +42748,7 @@ var staticRenderFns = [
           )
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "col-md-5" }, [
           _c(
             "div",
             {
@@ -42723,8 +42757,60 @@ var staticRenderFns = [
             },
             [
               _c("div", { staticClass: "card-body" }, [
-                _c("p", { staticClass: "card-title" }, [
-                  _c("strong", [_vm._v("Work Summary")])
+                _c("table", { staticClass: "table my-3" }, [
+                  _c("tbody", [
+                    _c("tr", [
+                      _c("td", [_vm._v("Post Amount")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("24")]),
+                      _vm._v(" "),
+                      _c("td")
+                    ]),
+                    _vm._v(" "),
+                    _c("tr", [
+                      _c("td", [_vm._v("Total Like")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("423.630")]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "span",
+                          { staticClass: "right badge badge-danger" },
+                          [_vm._v("2.3%")]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("tr", [
+                      _c("td", [_vm._v("Total Comment")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("4.534")]),
+                      _vm._v(" "),
+                      _c("td")
+                    ]),
+                    _vm._v(" "),
+                    _c("tr", [
+                      _c("td", [_vm._v("Engagement Rate")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("23%")]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "span",
+                          { staticClass: "right badge badge-success" },
+                          [_vm._v("4%")]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("tr", [
+                      _c("td", [_vm._v("Completed Task")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("34")]),
+                      _vm._v(" "),
+                      _c("td")
+                    ])
+                  ])
                 ])
               ])
             ]
@@ -42741,11 +42827,20 @@ var staticRenderFns = [
               staticStyle: { "min-height": "350px" }
             },
             [
-              _c("div", { staticClass: "card-body" }, [
-                _c("p", { staticClass: "card-title" }, [
-                  _c("strong", [_vm._v("Calendar and Scheduled Post")])
-                ])
-              ])
+              _c("div", { staticClass: "card-header" }, [
+                _c(
+                  "button",
+                  { staticClass: "btn btn-success btn-block float-right" },
+                  [
+                    _c("i", { staticClass: "fas fa-plus" }),
+                    _vm._v(
+                      "\n                        Schedule New Post\n                    "
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" })
             ]
           )
         ]),
