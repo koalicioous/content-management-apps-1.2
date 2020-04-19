@@ -27,6 +27,10 @@ let routes = [
     { path: '/tasks', component: require('./components/dashboard/task/index.vue').default},
     { path: '/users', component: require('./components/dashboard/user/index.vue').default},
     { path: '/roles', component: require('./components/dashboard/user/role.vue').default},
+    { path: '/stream', component: require('./components/dashboard/stream/index.vue').default},
+    { path: '/rubrik/:id', name: 'rubrik', component: require('./components/dashboard/rubrik/detail.vue').default},
+
+    { path: '/rubrikshow', name: 'rubrik', component: require('./components/dashboard/rubrik/detail.vue').default}
 ]
 
 //Creating the instance of VueRouter and pass the 'routes' option
@@ -102,6 +106,7 @@ Vue.component('v-select', vSelect)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('rubrik-show', require('./components/dashboard/rubrik/detail.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -26,6 +26,7 @@ Route::resource('/role', 'RoleController');
 
 //Rubrik
 Route::resource('/rubrik', 'RubrikController');
+Route::get('/rubrik/{rubrik}', 'RubrikController@show');
 
 //User
 Route::get('/user/unverified', 'UserController@unverified');

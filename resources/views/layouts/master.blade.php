@@ -17,7 +17,7 @@
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper" id="app">
-
+@yield('content')
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
@@ -86,6 +86,14 @@
               <i class="nav-icon fas fa-columns"></i>
               <p>
                 Dashboard
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/stream" class="nav-link">
+              <i class="nav-icon fas fa-stream"></i>
+              <p>
+                Stream
               </p>
             </router-link>
           </li>

@@ -54,7 +54,9 @@ class RubrikController extends Controller
      */
     public function show($id)
     {
-        //
+        $target = \App\Rubrik::find($id);
+
+        return view('rubrik.show');
     }
 
     /**

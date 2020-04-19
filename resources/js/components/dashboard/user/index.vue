@@ -183,6 +183,7 @@
                 .then(response => {
                     this.$Progress.finish()
                     this.loadUnverified()
+                    this.loadUsers()
                     $('#UnverifiedCogModal').modal('hide')
                     Toast.fire({
                         icon: 'success',

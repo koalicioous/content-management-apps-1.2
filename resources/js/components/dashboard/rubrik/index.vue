@@ -41,9 +41,9 @@
                                 </v-list-item>
                             </div>
                             <div class="card-footer justify-content-end d-flex">
-                                <button class="btn btn-primary">
+                                <router-link :to="{ name: 'rubrik', params: { id: rubrik.id } }" class="btn btn-primary">
                                     Detail <i class="fas fa-arrow-right"></i>
-                                </button>
+                                </router-link>
                             </div>
                         </div>
                     </div>
