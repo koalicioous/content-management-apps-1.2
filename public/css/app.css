@@ -49790,3 +49790,7 @@ readers do not read off random characters that represent icons */
   color: white !important;
 }
 
+.rubrik-card {
+  min-height: 250px;
+}
+

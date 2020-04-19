@@ -21,7 +21,7 @@ Vue.use(Vuetify);
 
 // Defining routes and components
 let routes = [
-    { path: '/dashboard', component: require('./components/dashboard/main.vue').default},
+    { path: '/home', component: require('./components/dashboard/main.vue').default},
     { path: '/rubriks', component: require('./components/dashboard/rubrik/index.vue').default},
     { path: '/calendar', component: require('./components/dashboard/calendar/index.vue').default},
     { path: '/tasks', component: require('./components/dashboard/task/index.vue').default},

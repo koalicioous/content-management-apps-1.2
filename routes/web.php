@@ -19,10 +19,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/dashboard', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
 //Role
 Route::resource('/role', 'RoleController');
+
+//Rubrik
+Route::resource('/rubrik', 'RubrikController');
 
 //User
 Route::get('/user/unverified', 'UserController@unverified');

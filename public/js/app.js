@@ -2065,9 +2065,117 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      form: new Form({
+        name: ''
+      }),
+      rubriks: ''
+    };
+  },
+  methods: {
+    loadRubriks: function loadRubriks() {
+      var _this = this;
+
+      axios.get('/rubrik').then(function (response) {
+        _this.rubriks = response.data;
+        console.log('Loaded rubriks data');
+      })["catch"](function (e) {
+        console.log('Failed to load rubriks data');
+      });
+    },
+    newRubrikModal: function newRubrikModal() {
+      $('#newRubrikModal').modal('show');
+    },
+    createNewRubrik: function createNewRubrik() {
+      var _this2 = this;
+
+      this.$Progress.start();
+      this.form.post('/rubrik').then(function (response) {
+        _this2.$Progress.finish();
+
+        _this2.loadRubriks();
+
+        $('#newRubrikModal').modal('hide');
+        Toast.fire({
+          icon: 'success',
+          title: 'New Rubrik is created successfully'
+        });
+      })["catch"](function (e) {
+        _this2.$Progress.fail();
+      });
+    }
+  },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    this.loadRubriks();
   }
 });
 
@@ -42469,25 +42577,262 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container-fluid" }, [
+    _c("div", { staticClass: "row justify-content-end" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-success",
+          on: {
+            click: function($event) {
+              return _vm.newRubrikModal()
+            }
+          }
+        },
+        [
+          _c("i", { staticClass: "fas fa-plus" }),
+          _vm._v("\n            Tambah Rubrik Baru\n        ")
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    this.rubriks.length < 1
+      ? _c("div", [_vm._m(0)])
+      : _c("div", [
+          _c(
+            "div",
+            { staticClass: "row" },
+            _vm._l(_vm.rubriks, function(rubrik) {
+              return _c("div", { key: rubrik.id }, [
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "card rubrik-card",
+                      staticStyle: { width: "18rem" }
+                    },
+                    [
+                      _c("div", { staticClass: "card-header" }, [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(rubrik.name) +
+                            "\n                        "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "card-body" },
+                        [
+                          _c(
+                            "v-list-item",
+                            { attrs: { "two-line": "" } },
+                            [
+                              _c(
+                                "v-list-item-content",
+                                [
+                                  _c("v-list-item-title", [
+                                    _vm._v("On-Going Task")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("v-list-item-subtitle", [_vm._v("13")])
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("v-divider"),
+                          _vm._v(" "),
+                          _c(
+                            "v-list-item",
+                            { attrs: { "two-line": "" } },
+                            [
+                              _c(
+                                "v-list-item-content",
+                                [
+                                  _c("v-list-item-title", [
+                                    _vm._v("Engagement Rate")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("v-list-item-subtitle", [_vm._v("27.3%")])
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _vm._m(1, true)
+                    ]
+                  )
+                ])
+              ])
+            }),
+            0
+          )
+        ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "newRubrikModal",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "newRubrikModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.createNewRubrik()
+                    },
+                    keydown: function($event) {
+                      return _vm.form.onKeydown($event)
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Rubrik name")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.name,
+                              expression: "form.name"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.form.errors.has("name") },
+                          attrs: { type: "text", name: "name" },
+                          domProps: { value: _vm.form.name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "name", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "name" }
+                        })
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-secondary",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Cancel")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-success",
+                        attrs: { disabled: _vm.form.busy, type: "submit" }
+                      },
+                      [_vm._v("Create Rubrik")]
+                    )
+                  ])
+                ]
+              )
+            ])
+          ]
+        )
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [_vm._v("Rubrik")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v("\n                    This is Rubrik\n                ")
-            ])
+    return _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-10" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body text-center" }, [
+            _c("strong", [_vm._v("Whoops! it seems no Rubrik is available")])
           ])
         ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "card-footer justify-content-end d-flex" },
+      [
+        _c("button", { staticClass: "btn btn-primary" }, [
+          _vm._v("\n                                Detail "),
+          _c("i", { staticClass: "fas fa-arrow-right" })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("Create New Rubrik")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
     ])
   }
 ]
@@ -99927,7 +100272,7 @@ Vue.use(vuetify__WEBPACK_IMPORTED_MODULE_0___default.a);
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]); // Defining routes and components
 
 var routes = [{
-  path: '/dashboard',
+  path: '/home',
   component: __webpack_require__(/*! ./components/dashboard/main.vue */ "./resources/js/components/dashboard/main.vue")["default"]
 }, {
   path: '/rubriks',
