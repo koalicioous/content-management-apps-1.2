@@ -32,6 +32,10 @@ Route::get('/rubrik/loadrubrik/{rubrik}', 'RubrikController@loadRubrik');
 //Post
 Route::resource('/post', 'PostController');
 
+//Task
+Route::resource('/task', 'TaskController');
+Route::get('/task/post', 'TaskController@loadTasksInPost');
+
 //User
 Route::get('/user/unverified', 'UserController@unverified');
 Route::post('/user/{user}/role', 'UserController@updateRole');

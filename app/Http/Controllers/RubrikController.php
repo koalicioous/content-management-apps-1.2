@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Rubrik;
 use App\Post;
 use App\Task;
+use App\User;
 use PhpParser\Node\Stmt\Foreach_;
 
 class RubrikController extends Controller
@@ -68,6 +69,7 @@ class RubrikController extends Controller
             ['rubrik_id', '=', $id]
         ])->get();
         $rubrikTasks[] = '';
+        $users = \App\User::all();
 
         for($i=0;$i<$posts->count();$i++){
             $postTasks = \App\Task::where([
@@ -77,11 +79,12 @@ class RubrikController extends Controller
                 array_push($rubrikTasks,$postTask);
             }
         }
-        
+
         return response()->json([
             "rubrik" => $target,
             "posts" => $posts,
-            "tasks" => $rubrikTasks
+            "tasks" => $rubrikTasks,
+            "users" => $users
         ]);
     }
 

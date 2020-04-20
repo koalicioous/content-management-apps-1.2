@@ -119,8 +119,7 @@
                                     <date-picker name="publish_date" v-model="newPost.publish_date" type="date" valueType="YYYY/MM/DD" format="ddd, DD MMM YYYY"
                                     :class="{ 'is-invalid': newPost.errors.has('publish_date') }" placeholder="Pick a publish date"></date-picker>
                                     <has-error :form="newPost" field="publish_date"></has-error>
-                                </div>
-                                
+                                </div>  
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -136,13 +135,70 @@
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">{{ postData.name }} Configuration</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">{{ postData.name }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    ...
+                    <p><strong>Work Progress</strong></p>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <i class="fas fa-angle-double-right" style="color:#3490d"></i>
+                                    Unfinished Tasks
+                                    <button class="btn btn-success btn-sm float-right" @click="newTaskModal()">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                                <div class="card-body task-post-card unfinished-task">
+                                    <div v-if="unfinishedTasks.length < 1">
+                                        <p class="text-center">
+                                            <strong>Whoops! No unfinished task in this post</strong>
+                                        </p>
+                                    </div>
+                                    <div v-else>
+                                        <div v-for="unf in unfinishedTasks" :key="unf.id">
+                                            <div class="card shadow-sm">
+                                                <div class="card-body">
+                                                    <div class="task-title my-2">Make Final Design</div>
+                                                    <div class="task-description">Di sini bakal ditulisin apa aja yang harus dilakuin di task ini</div>
+                                                    <div class="task-resp my-2 float-right">Ilham Fathurrahman</div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-danger btn-sm">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                    <button class="btn btn-success btn-sm">
+                                                        <i class="fas fa-check"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <i class="fas fa-check-circle" style="color:#38c172"></i>
+                                    Completed Task
+                                    <button class="btn btn-sm float-right" style="color:#fffff">
+                                        <i class="fas fa-angle-double-up"></i>
+                                    </button>
+                                </div>
+                                <div class="card-body task-post-card">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-danger" @click="deletePost(postData)">
@@ -151,6 +207,48 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- New Task Modal -->
+        <div class="modal fade" id="newTask" tabindex="-1" role="dialog" aria-labelledby="newTaskLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content shadow">
+                    <form @submit.prevent="createTask()">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">New Task</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Order</label>
+                                <input v-model="newTask.order" type="text" name="order"
+                                    class="form-control" :class="{ 'is-invalid': newTask.errors.has('order') }">
+                                <has-error :form="newTask" field="order"></has-error>
+                            </div>
+                            <div class="form-group">
+                                <label>Description (Optional)</label>
+                                <input v-model="newTask.desc" type="text" name="desc"
+                                    class="form-control" :class="{ 'is-invalid': newTask.errors.has('desc') }">
+                                <has-error :form="newTask" field="desc"></has-error>
+                            </div>
+                            <div class="form-group">
+                                <label>Responsible</label>
+                                <select v-model="newTask.userId" name="userId" id="userId"
+                                type="text" class="form-control" :class="{ 'is-invalid': newTask.errors.has('userId') }">
+                                    <option v-for="(user, key) in users" :value="user.id" :key="key">{{user.name}}</option>
+                                </select>
+                                <has-error :form="newTask" field="role"></has-error>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button :disabled="newTask.busy" type="submit" class="btn btn-success">Assign Task</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -164,11 +262,21 @@ export default {
             rubrikId: this.$route.params.id,
             rubrik: '',
             posts: '',
+            tasks: '',
+            unfinishedTasks: '',
+            finishedTasksInPost: '',
+            users: '',
             newPost: new Form({
                 name: '',
                 publish_date: '',
                 is_published: '',
                 rubrik_id: this.$route.params.id,
+            }),
+            newTask: new Form({
+                order: '',
+                desc: '',
+                userId: '',
+                postId: '',
             }),
             postData: '',
         }
@@ -178,6 +286,9 @@ export default {
             axios.get('/rubrik/loadrubrik/' + this.rubrikId)
             .then(response => {
                 this.rubrik = response.data.rubrik
+                this.posts = response.data.posts
+                this.tasks = response.data.tasks
+                this.users = response.data.users
             })
             .catch(e => {
                 console.log('failed to load rubrik data')
@@ -189,9 +300,26 @@ export default {
                 this.posts = response.data
             })
         },
+        loadTasksInPost(id){
+            axios.get('/task/post?post=' + id)
+            .then(response => {
+                console.log(response)
+            })
+        },
         newPostModal(){
             this.newPost.reset()
             $('#newPostModal').modal('show')
+        },
+        newTaskModal(){
+            this.newTask.reset()
+            this.newTask.postId = this.postData.id
+            $('#newTask').modal('show')
+        },
+        createTask(){
+            this.newTask.post('/task')
+            .then(response => {
+                console.log(response.data)
+            })
         },
         schedulePost(){
             this.$Progress.start()
@@ -209,6 +337,7 @@ export default {
         },
         postCogs(post){
             this.postData = post
+            this.loadTasksInPost(post.id)
             $('#PostCogsModal').modal('show')
         },
         deletePost(post){
@@ -241,7 +370,6 @@ export default {
     },
     mounted(){
         this.loadRubrik()
-        this.loadPosts()
     }
 
 }
