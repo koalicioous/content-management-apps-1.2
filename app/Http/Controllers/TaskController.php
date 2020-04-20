@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Task;
+use App\Task_user;
 
 class TaskController extends Controller
 {
@@ -14,16 +15,26 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        return 'tes';
     }
 
     public function loadTaskInPost(Request $request)
     {
-        $unfinishedTasks = \App\Task::where([
-            ['post_id', '=', $request->inpit('post')],
+        $unfinished = \App\Task::where([
+            ['post_id', '=', $request->input('post')],
+            ['is_done', '=', false]
         ])->get();
 
-        return 'tes';
+        $finished = \App\Task::where([
+            ['post_id', '=', $request->input('post')],
+            ['is_done', '=', true]
+        ])->get();
+
+        return response()
+        ->json([
+            'unfinished' => $unfinished,
+            'finished' => $finished
+        ]);
     }
 
     /**
@@ -44,7 +55,31 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        $validateTask = $request->validate([
+            'order' => ['required'],
+            'userId' => ['required'],
+            'postId' => ['required']
+        ]);
+
+        
+        $target = \App\Task::create([
+            'name' => $request->order,
+            'description' => $request->desc,
+            'post_id' => $request->postId
+        ]);
+
+        $task_user = \App\Task_user::create([
+            'task_id' => $target->id,
+            'user_id' => $request->userId
+        ]);
+
+        return response()
+        ->json([
+            'New Task' => $target,
+            'relation' => $task_user
+        ]);
+
+       
     }
 
     /**

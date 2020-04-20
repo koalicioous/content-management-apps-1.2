@@ -33,8 +33,8 @@ Route::get('/rubrik/loadrubrik/{rubrik}', 'RubrikController@loadRubrik');
 Route::resource('/post', 'PostController');
 
 //Task
+Route::get('/task/post', 'TaskController@loadTaskInPost');
 Route::resource('/task', 'TaskController');
-Route::get('/task/post', 'TaskController@loadTasksInPost');
 
 //User
 Route::get('/user/unverified', 'UserController@unverified');

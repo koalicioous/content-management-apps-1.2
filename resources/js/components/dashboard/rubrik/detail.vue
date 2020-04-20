@@ -156,18 +156,18 @@
                                     </button>
                                 </div>
                                 <div class="card-body task-post-card unfinished-task">
-                                    <div v-if="unfinishedTasks.length < 1">
+                                    <div v-if="unfinishedTasksInPost.length < 1">
                                         <p class="text-center">
                                             <strong>Whoops! No unfinished task in this post</strong>
                                         </p>
                                     </div>
                                     <div v-else>
-                                        <div v-for="unf in unfinishedTasks" :key="unf.id">
+                                        <div v-for="unf in unfinishedTasksInPost" :key="unf.id">
                                             <div class="card shadow-sm">
                                                 <div class="card-body">
-                                                    <div class="task-title my-2">Make Final Design</div>
-                                                    <div class="task-description">Di sini bakal ditulisin apa aja yang harus dilakuin di task ini</div>
-                                                    <div class="task-resp my-2 float-right">Ilham Fathurrahman</div>
+                                                    <div class="task-title my-2">{{ unf.name }}</div>
+                                                    <div class="task-description">{{ unf.description }}</div>
+                                                    <div class="task-resp my-2 float-right">{{ unf.user_id }}</div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-danger btn-sm">
@@ -263,7 +263,7 @@ export default {
             rubrik: '',
             posts: '',
             tasks: '',
-            unfinishedTasks: '',
+            unfinishedTasksInPost: '',
             finishedTasksInPost: '',
             users: '',
             newPost: new Form({
@@ -303,7 +303,8 @@ export default {
         loadTasksInPost(id){
             axios.get('/task/post?post=' + id)
             .then(response => {
-                console.log(response)
+                this.unfinishedTasksInPost = response.data.unfinished
+                this.finishedTasksInPost = response.data.finished
             })
         },
         newPostModal(){
@@ -318,7 +319,12 @@ export default {
         createTask(){
             this.newTask.post('/task')
             .then(response => {
-                console.log(response.data)
+                this.loadTasksInPost(this.postData.id)
+                console.log(response)
+                $('#newTask').modal('hide')
+            })
+            .catch(e => {
+                console.log('failed to create task')
             })
         },
         schedulePost(){
