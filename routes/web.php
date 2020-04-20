@@ -29,6 +29,9 @@ Route::resource('/rubrik', 'RubrikController');
 Route::get('/rubrik/{rubrik}', 'RubrikController@show');
 Route::get('/rubrik/loadrubrik/{rubrik}', 'RubrikController@loadRubrik');
 
+//Post
+Route::resource('/post', 'PostController');
+
 //User
 Route::get('/user/unverified', 'UserController@unverified');
 Route::post('/user/{user}/role', 'UserController@updateRole');

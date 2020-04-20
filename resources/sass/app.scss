@@ -24,6 +24,9 @@
 //Vuetify Icons
 @import '~@mdi/font/css/materialdesignicons.min.css';
 
+//Date Picker Style
+@import '~vue2-datepicker/scss/index.scss';
+
 //Temporary custom css
 
 .router-link-exact-active{
@@ -33,4 +36,10 @@
 
 .rubrik-card{
     min-height: 250px;
+}
+
+.post-schedule-card{
+    min-height: 350px;
+    max-height: 500px;
+    overflow: auto;
 }

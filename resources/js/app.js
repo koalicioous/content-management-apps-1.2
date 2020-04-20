@@ -95,6 +95,24 @@ import vSelect from 'vue-select'
 Vue.component('v-select', vSelect)
 
 /**
+ * Import and make an instance of vue2 Date Picker
+ */
+
+ import DatePicker from 'vue2-datepicker';
+ import 'vue2-datepicker/locale/id'
+ Vue.use(DatePicker);
+
+ /**
+  * Import Moment for date display formatting
+  */
+ import moment from 'moment'
+ Vue.filter('formatDate', function(date) {
+   if (date) {
+     return moment(date).format('dddd, DD MMM YYYY')
+   }
+ })
+
+/**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
  * components and automatically register them with their "basename".
