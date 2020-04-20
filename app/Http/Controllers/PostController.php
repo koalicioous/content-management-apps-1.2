@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Rubrik;
+use App\Task;
 
 class PostController extends Controller
 {
@@ -15,11 +16,12 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $target = \App\Post::where([
+    
+        $post = \App\Post::where([
             ['rubrik_id', '=', $request->input('rubrik')]
         ])->get();
 
-        return $target;
+        return $post;
     }
 
     /**
@@ -40,6 +42,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
         $validatePost = $request->validate([
             'name' => ['required'],
             'publish_date' => ['required'],
@@ -52,10 +55,10 @@ class PostController extends Controller
             'rubrik_id' => $request->rubrik_id
         ]);
 
-        return response()->json([
-            'status' => 'success',
-            'result' => $result
-        ]);
+         return response()->json([
+             'status' => 'success',
+             'result' => $result
+         ]);
     }
 
     /**

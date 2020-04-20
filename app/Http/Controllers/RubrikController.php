@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Rubrik;
+use App\Post;
+use App\Task;
+use PhpParser\Node\Stmt\Foreach_;
 
 class RubrikController extends Controller
 {
@@ -61,8 +64,25 @@ class RubrikController extends Controller
     public function loadRubrik($id)
     {
         $target = \App\Rubrik::find($id);
+        $posts = \App\Post::where([
+            ['rubrik_id', '=', $id]
+        ])->get();
+        $rubrikTasks[] = '';
 
-        return $target;
+        for($i=0;$i<$posts->count();$i++){
+            $postTasks = \App\Task::where([
+                ['post_id', '=', $posts[$i]->id]
+            ])->get();
+            foreach($postTasks as $postTask){
+                array_push($rubrikTasks,$postTask);
+            }
+        }
+        
+        return response()->json([
+            "rubrik" => $target,
+            "posts" => $posts,
+            "tasks" => $rubrikTasks
+        ]);
     }
 
     /**

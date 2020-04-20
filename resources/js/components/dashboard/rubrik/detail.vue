@@ -116,7 +116,7 @@
                                     <has-error :form="newPost" field="name"></has-error>
                                 </div>
                                 <div class="form-group">
-                                    <date-picker name="publish_date" v-model="newPost.publish_date" type="date" format="ddd, DD MMM YYYY"
+                                    <date-picker name="publish_date" v-model="newPost.publish_date" type="date" valueType="YYYY/MM/DD" format="ddd, DD MMM YYYY"
                                     :class="{ 'is-invalid': newPost.errors.has('publish_date') }" placeholder="Pick a publish date"></date-picker>
                                     <has-error :form="newPost" field="publish_date"></has-error>
                                 </div>
@@ -177,7 +177,7 @@ export default {
         loadRubrik(){
             axios.get('/rubrik/loadrubrik/' + this.rubrikId)
             .then(response => {
-                this.rubrik = response.data
+                this.rubrik = response.data.rubrik
             })
             .catch(e => {
                 console.log('failed to load rubrik data')
@@ -190,12 +190,14 @@ export default {
             })
         },
         newPostModal(){
+            this.newPost.reset()
             $('#newPostModal').modal('show')
         },
         schedulePost(){
             this.$Progress.start()
             this.newPost.post('/post')
             .then(response => {
+                console.log(response)
                 this.$Progress.finish()
                 this.loadPosts()
                 $('#newPostModal').modal('hide')
